@@ -2,8 +2,9 @@
 #include <string>
 #include <assimp/types.h>
 #include <glm/glm.hpp>
-#include "../Engine/Scene/GameObject/Model/Material/TextureMaterial/Texture/Texture.h"
+#include "../Material/TextureMaterial/Texture/Texture.h"
 #include <assimp/scene.h>
+
 #define NODISCARD [[nodiscard]]
 
 namespace Utils {

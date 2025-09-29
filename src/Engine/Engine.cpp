@@ -1,12 +1,12 @@
 #include "Engine.h"
 #include <filesystem>
 #include <imgui.h>
-
 #include "../Core/Core.h"
-#include "../Input/Input.h"
-#include "Scene/GameObject/Light/DirectionalLight/DirectionalLight.h"
-#include "Scene/GameObject/Light/PointLight/PointLight.h"
-#include "Scene/GameObject/Light/SpotLight/SpotLight.h"
+#include "../Core/Input/Input.h"
+#include "../Shader/Shader.h"
+#include "../GameObject/Components/Light/DirectionalLight/DirectionalLight.h"
+#include "../GameObject/Components/Light/PointLight/PointLight.h"
+#include "../GameObject/Components/Light/SpotLight/SpotLight.h"
 
 Engine::Engine() {
     // !!!!!!!!!
@@ -33,8 +33,8 @@ void Engine::LoadScenes() {
 void Engine::Run() const {
     glfwSetInputMode(Core::GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-    const auto shader = new Shader("../src/Engine/Shader/Shaders/default.vert",
-                                   "../src/Engine/Shader/Shaders/default.frag");
+    const auto shader = new Shader("../src/Shader/Shaders/default.vert",
+                                   "../src/Shader/Shaders/default.frag");
     shader->Bind();
     // shader->SetVec3("directionalLights[0].direction", glm::vec3(0.0f, 1.0f, 0.5f));
     // shader->SetVec3("directionalLights[0].ambient", glm::vec3(0.2f, 0.2f, 0.2f));
@@ -52,7 +52,6 @@ void Engine::Run() const {
     const auto spotLight = new SpotLight(glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.5f, 0.5f, 0.5f),
                                         glm::vec3(1.0f, 1.0f, 1.0f), 10, 0.5, 10, 15, glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f));
     // spotLight->Render(shader);
-
 
     while (!glfwWindowShouldClose(Core::GetWindow())) {
         scenes[currentScene]->Render(shader);

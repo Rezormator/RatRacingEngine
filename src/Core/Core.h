@@ -4,8 +4,8 @@
 #include "../Utils/Utils.h"
 
 namespace Core {
-    constexpr auto DEFAULT_SCREEN_WIDTH = 800.0f;
-    constexpr auto DEFAULT_SCREEN_HEIGHT = 600.0f;
+    constexpr float DEFAULT_SCREEN_WIDTH = 800.0f;
+    constexpr float DEFAULT_SCREEN_HEIGHT = 600.0f;
     constexpr auto DEFAULT_WINDOW_TITLE = "OpenGL Example";
 
     void Initialize(int width = DEFAULT_SCREEN_WIDTH, int height = DEFAULT_SCREEN_HEIGHT,

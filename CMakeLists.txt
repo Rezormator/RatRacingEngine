@@ -26,50 +26,54 @@ include_directories(${IMGUI_DIR}/backends)
 
 link_directories(${LIBS_DIR})
 
-add_executable(RatRacingEngine src/main.cpp
+add_executable(RatRacingEngine
+        src/main.cpp
         src/Engine/Engine.cpp
         src/Engine/Engine.h
-        src/Engine/Scene/Scene.cpp
-        src/Engine/Scene/Scene.h
+        src/Engine/Project/Scene/Scene.cpp
+        src/Engine/Project/Scene/Scene.h
         src/Engine/UserInterface/UserInterface.cpp
         src/Engine/UserInterface/UserInterface.h
+        src/Engine/Project/Resources/Resources.cpp
+        src/Engine/Project/Resources/Resources.h
         src/Core/Core.cpp
         src/Core/Core.h
-        src/Input/Input.cpp
-        src/Input/Input.h
-        src/DeltaTime/Time.cpp
-        src/DeltaTime/Time.h
+        src/Core/Input/Input.cpp
+        src/Core/Input/Input.h
+        src/Core/Time/Time.cpp
+        src/Core/Time/Time.h
         src/Utils/Utils.cpp
         src/Utils/Utils.h
-        src/Engine/Scene/GameObject/Model/Material/TextureMaterial/Texture/Texture.cpp
-        src/Engine/Scene/GameObject/Model/Material/TextureMaterial/Texture/Texture.h
         src/Error/Error.cpp
         src/Error/Error.h
-        src/Engine/Scene/GameObject/GameObject.cpp
-        src/Engine/Scene/GameObject/GameObject.h
-        src/Engine/Scene/GameObject/Camera/Camera.cpp
-        src/Engine/Scene/GameObject/Camera/Camera.h
-        src/Engine/Scene/GameObject/Model/Material/Material.cpp
-        src/Engine/Scene/GameObject/Model/Material/Material.h
-        src/Engine/Scene/GameObject/Model/Material/DefaultMaterial/DefaultMaterial.cpp
-        src/Engine/Scene/GameObject/Model/Material/DefaultMaterial/DefaultMaterial.h
-        src/Engine/Scene/GameObject/Model/Material/TextureMaterial/TextureMaterial.cpp
-        src/Engine/Scene/GameObject/Model/Material/TextureMaterial/TextureMaterial.h
-        src/Engine/Scene/GameObject/Model/Mesh/Mesh.cpp
-        src/Engine/Scene/GameObject/Model/Mesh/Mesh.h
-        src/Engine/Scene/GameObject/Model/Mesh/Vertex/Vertex.cpp
-        src/Engine/Scene/GameObject/Model/Mesh/Vertex/Vertex.h
-        src/Engine/Scene/GameObject/Model/Model.cpp
-        src/Engine/Scene/GameObject/Model/Model.h
-        src/Engine/Shader/Shader.cpp
-        src/Engine/Shader/Shader.h
-        src/Engine/Scene/GameObject/Light/Light.cpp
-        src/Engine/Scene/GameObject/Light/Light.h
-        src/Engine/Scene/GameObject/Light/DirectionalLight/DirectionalLight.cpp
-        src/Engine/Scene/GameObject/Light/DirectionalLight/DirectionalLight.h
-        src/Engine/Scene/GameObject/Light/PointLight/PointLight.cpp
-        src/Engine/Scene/GameObject/Light/PointLight/PointLight.h
-        src/Engine/Scene/GameObject/Light/SpotLight/SpotLight.cpp
-        src/Engine/Scene/GameObject/Light/SpotLight/SpotLight.h)
+        src/GameObject/GameObject.cpp
+        src/GameObject/GameObject.h
+        src/GameObject/Components/Camera/Camera.cpp
+        src/GameObject/Components/Camera/Camera.h
+        src/GameObject/Components/Light/Light.cpp
+        src/GameObject/Components/Light/Light.h
+        src/GameObject/Components/Light/DirectionalLight/DirectionalLight.cpp
+        src/GameObject/Components/Light/DirectionalLight/DirectionalLight.h
+        src/GameObject/Components/Light/PointLight/PointLight.cpp
+        src/GameObject/Components/Light/PointLight/PointLight.h
+        src/GameObject/Components/Light/SpotLight/SpotLight.cpp
+        src/GameObject/Components/Light/SpotLight/SpotLight.h
+        src/GameObject/Components/Model/Model.cpp
+        src/GameObject/Components/Model/Model.h
+        src/GameObject/Components/Model/Mesh/Mesh.cpp
+        src/GameObject/Components/Model/Mesh/Mesh.h
+        src/GameObject/Components/Model/Mesh/Vertex/Vertex.cpp
+        src/GameObject/Components/Model/Mesh/Vertex/Vertex.h
+        src/Material/Material.cpp
+        src/Material/Material.h
+        src/Material/DefaultMaterial/DefaultMaterial.cpp
+        src/Material/DefaultMaterial/DefaultMaterial.h
+        src/Material/TextureMaterial/TextureMaterial.cpp
+        src/Material/TextureMaterial/TextureMaterial.h
+        src/Material/TextureMaterial/Texture/Texture.cpp
+        src/Material/TextureMaterial/Texture/Texture.h
+        src/Shader/Shader.cpp
+        src/Shader/Shader.h
+)
 
 target_link_libraries(RatRacingEngine ${LIBS})
