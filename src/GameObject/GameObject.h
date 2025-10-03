@@ -1,9 +1,11 @@
 #pragma once
 #include <glm/glm.hpp>
+
+#include "../Dispose/IDisposable.h"
 #include "../Shader/Shader.h"
 #include "../Utils/Utils.h"
 
-class GameObject {
+class GameObject : IDisposable {
 protected:
     static constexpr glm::vec3 DEFAULT_POSITION {0.0f};
     static constexpr glm::vec3 DEFAULT_ROTATION {0.0f};
@@ -20,7 +22,6 @@ public:
     explicit GameObject(const glm::vec3 &position = DEFAULT_POSITION,
                         const glm::vec3 &rotation = DEFAULT_ROTATION,
                         const glm::vec3 &scale = DEFAULT_SCALE);
-    virtual ~GameObject() = default;
     virtual void SetModel(const glm::mat4 &model);
     void SetPosition(const glm::vec3 &position);
     void SetRotation(const glm::vec3 &rotation);
@@ -31,4 +32,5 @@ public:
     NODISCARD glm::mat4 GetModel() const;
     virtual void Update();
     virtual void Render(Shader *shader) const = 0;
+    void Dispose() override;
 };

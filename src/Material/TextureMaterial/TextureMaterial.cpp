@@ -1,20 +1,13 @@
 #include "TextureMaterial.h"
 
-TextureMaterial::TextureMaterial(Texture *diffuse, Texture *specular, Texture *emission, const float shininess)
-    : Material(shininess), diffuse(diffuse), specular(specular), emission(emission) {
+TextureMaterial::TextureMaterial(const std::string &name, Texture *diffuse, Texture *specular, Texture *emission, const float shininess)
+    : Material(name, shininess), diffuse(diffuse), specular(specular), emission(emission) {
 }
 
-TextureMaterial::TextureMaterial(const aiTextureMaterial &material) {
+TextureMaterial::TextureMaterial(const aiTextureMaterial &material) : Material(material.name, material.shininess) {
     diffuse = material.diffuse;
     specular = material.specular;
     emission = material.emission;
-    shininess = material.shininess;
-}
-
-TextureMaterial::~TextureMaterial() {
-    delete diffuse;
-    delete specular;
-    delete emission;
 }
 
 void TextureMaterial::Apply(Shader *shader) {
@@ -30,4 +23,10 @@ void TextureMaterial::Apply(Shader *shader) {
     emission->Bind();
     shader->SetInt("isLight", false);
     shader->SetInt("isTextureMaterial", true);
+}
+
+void TextureMaterial::Dispose() {
+    delete diffuse;
+    delete specular;
+    delete emission;
 }

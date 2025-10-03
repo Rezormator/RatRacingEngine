@@ -40,5 +40,8 @@ namespace Input {
 
     void Update() {
         CalcCursorOffset();
+        if (GetKeyDown(GLFW_KEY_ESCAPE)) {
+            glfwSetWindowShouldClose(Core::GetWindow(), GLFW_TRUE);
+        }
     }
 }

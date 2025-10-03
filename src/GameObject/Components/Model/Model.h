@@ -1,24 +1,15 @@
 #pragma once
-#include <map>
 #include <vector>
-#include "../../GameObject.h"
-#include "../../../Material/Material.h"
 #include "Mesh/Mesh.h"
-#include <assimp/scene.h>
 
-class Model final : public GameObject {
+class Model {
 private:
-    std::string directory;
-    std::vector<Mesh *> meshes;
-    std::map<GLuint, Material *> materials;
-    void LoadModel(const std::string &path);
-    void LoadMaterials(const aiScene *scene);
-    void ProcessNode(const aiNode *node, const aiScene *scene);
-    void UpdateTransform() override;
+    std::string name;
+    std::vector<uint> meshes;
 public:
-    explicit Model(const char *path);
-    ~Model() override;
-    void SetModel(const glm::mat4 &model) override;
-    std::string GetDirectory() const;
-    void Render(Shader *shader) const override;
+    explicit Model(const std::string &name, const std::vector<uint> &meshes);
+    void SetName(const std::string &name);
+    void SetMeshes(const std::vector<uint> &meshes);
+    NODISCARD std::string GetName() const;
+    NODISCARD std::vector<uint> GetMeshes() const;
 };

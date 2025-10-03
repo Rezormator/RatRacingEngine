@@ -3,5 +3,5 @@
 #include <vector>
 
 namespace Error {
-    void LogError(const std::vector<std::string>& errors, bool closeAfterError = false);
+    void LogError(const std::vector<std::string>& logs, bool closeAfterError = false);
 }

@@ -2,6 +2,8 @@
 #include <fstream>
 #include <sstream>
 #include <stb/stb_image.h>
+#include <filesystem>
+#include "../Error/Error.h"
 
 namespace Utils {
     std::string ReadTextFromFile(const std::string &filePath) {
@@ -23,5 +25,15 @@ namespace Utils {
         mat->GetTexture(type, 0, &texName);
         const auto texPath = directory + "/" + texName.C_Str();
         return new Texture(texPath.c_str());
+    }
+
+    std::string GetObjFileName(const std::string &fileDirectory) {
+        for (const auto& entry : std::filesystem::directory_iterator(fileDirectory)) {
+            if (entry.is_regular_file() && entry.path().extension() == ".obj") {
+                return entry.path().filename().string();
+            }
+        }
+        Error::LogError(std::vector<std::string> {".obj dont found", fileDirectory});
+        return "object";
     }
 }

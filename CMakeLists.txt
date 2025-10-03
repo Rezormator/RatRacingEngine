@@ -34,8 +34,8 @@ add_executable(RatRacingEngine
         src/Engine/Project/Scene/Scene.h
         src/Engine/UserInterface/UserInterface.cpp
         src/Engine/UserInterface/UserInterface.h
-        src/Engine/Project/Resources/Resources.cpp
-        src/Engine/Project/Resources/Resources.h
+        src/Resources/Resources.cpp
+        src/Resources/Resources.h
         src/Core/Core.cpp
         src/Core/Core.h
         src/Core/Input/Input.cpp
@@ -74,6 +74,13 @@ add_executable(RatRacingEngine
         src/Material/TextureMaterial/Texture/Texture.h
         src/Shader/Shader.cpp
         src/Shader/Shader.h
+        src/Dispose/IDisposable.h
+        src/Engine/Project/Renderer/Renderer.cpp
+        src/Engine/Project/Renderer/Renderer.h
+        src/Engine/Project/Renderer/RenderData.h
+        src/Engine/Project/Renderer/RenderTypes.h
+        src/Engine/Project/Project.cpp
+        src/Engine/Project/Project.h
 )
 
 target_link_libraries(RatRacingEngine ${LIBS})

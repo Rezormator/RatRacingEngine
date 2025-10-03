@@ -1,10 +1,9 @@
 #include "Mesh.h"
 
-Mesh::Mesh(const aiMesh *mesh, Material *material) {
+Mesh::Mesh(const aiMesh *mesh, const uint materialIndex) : materialIndex(materialIndex) {
     CopyVertices(mesh);
     CopyIndices(mesh);
     SetupMesh();
-    this->material = material;
 }
 
 void Mesh::CopyVertices(const aiMesh *mesh) {
@@ -53,10 +52,24 @@ GLvoid Mesh::SetupMesh() {
     glBindVertexArray(0);
 }
 
-GLvoid Mesh::Render(Shader *shader) const {
-    material->Apply(shader);
-    shader->SetMat4("model", model);
-    glBindVertexArray(VAO);
-    glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(indices.size()), GL_UNSIGNED_INT, nullptr);
-    glBindVertexArray(0);
+void Mesh::SetMaterialIndex(const uint materialIndex) {
+    this->materialIndex = materialIndex;
+}
+
+GLuint Mesh::GetVAO() const {
+    return VAO;
+}
+
+uint Mesh::GetIndicesCount() const {
+    return indices.size();
+}
+
+uint Mesh::GetMaterialIndex() const {
+    return materialIndex;
+}
+
+void Mesh::Dispose() {
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteBuffers(1, &EBO);
 }

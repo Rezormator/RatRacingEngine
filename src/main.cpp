@@ -1,8 +1,8 @@
 #include "Engine/Engine.h"
 
 int main() {
-    const auto RatRacingEngine = new Engine();
-    RatRacingEngine->Run();
-    delete RatRacingEngine;
+    Engine::Initialize();
+    Engine::Run();
+    Engine::Shut();
     return 0;
 }

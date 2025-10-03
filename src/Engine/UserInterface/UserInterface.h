@@ -1,10 +1,7 @@
 #pragma once
 
-class UserInterface {
-private:
-
-public:
-    UserInterface();
-    ~UserInterface();
-    void Render() const;
-};
+namespace UserInterface {
+    void Initialize();
+    void ProjectSelectionMenu();
+    void Render();
+}

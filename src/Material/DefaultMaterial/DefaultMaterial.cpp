@@ -1,17 +1,16 @@
 #include "DefaultMaterial.h"
 #include "../../Utils/Utils.h"
 
-DefaultMaterial::DefaultMaterial(const glm::vec3 ambient, const glm::vec3 diffuse, const glm::vec3 specular,
+DefaultMaterial::DefaultMaterial(const std::string &name, const glm::vec3 ambient, const glm::vec3 diffuse, const glm::vec3 specular,
                                  float shininess, const glm::vec3 emission)
-    : Material(shininess), ambient(ambient), diffuse(diffuse), specular(specular), emission(emission) {
+    : Material(name, shininess), ambient(ambient), diffuse(diffuse), specular(specular), emission(emission) {
 }
 
-DefaultMaterial::DefaultMaterial(const aiDefaultMaterial& material) {
+DefaultMaterial::DefaultMaterial(const aiDefaultMaterial& material) : Material(material.name, material.shininess) {
     ambient = Utils::Color3DToVec3(material.ambient);
     diffuse = Utils::Color3DToVec3(material.diffuse);
     specular = Utils::Color3DToVec3(material.specular);
     emission = Utils::Color3DToVec3(material.emission);
-    shininess = material.shininess;
 }
 
 void DefaultMaterial::Apply(Shader *shader) {
@@ -22,4 +21,7 @@ void DefaultMaterial::Apply(Shader *shader) {
     shader->SetFloat("material.shininess", shininess);
     shader->SetInt("isLight", false);
     shader->SetInt("isTextureMaterial", false);
+}
+
+void DefaultMaterial::Dispose() {
 }

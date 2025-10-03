@@ -208,12 +208,12 @@ build CMakeFiles/RatRacingEngine.dir/src/Engine/UserInterface/UserInterface.cpp.
   OBJECT_DIR = CMakeFiles\RatRacingEngine.dir
   OBJECT_FILE_DIR = CMakeFiles\RatRacingEngine.dir\src\Engine\UserInterface
 
-build CMakeFiles/RatRacingEngine.dir/src/Engine/Project/Resources/Resources.cpp.obj: CXX_COMPILER__RatRacingEngine_unscanned_Debug D$:/Projects/OpenGL/RatRacingEngine/src/Engine/Project/Resources/Resources.cpp || cmake_object_order_depends_target_RatRacingEngine
-  DEP_FILE = CMakeFiles\RatRacingEngine.dir\src\Engine\Project\Resources\Resources.cpp.obj.d
+build CMakeFiles/RatRacingEngine.dir/src/Resources/Resources.cpp.obj: CXX_COMPILER__RatRacingEngine_unscanned_Debug D$:/Projects/OpenGL/RatRacingEngine/src/Resources/Resources.cpp || cmake_object_order_depends_target_RatRacingEngine
+  DEP_FILE = CMakeFiles\RatRacingEngine.dir\src\Resources\Resources.cpp.obj.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   INCLUDES = -ID:/Projects/OpenGL/RatRacingEngine/vendor -ID:/Projects/OpenGL/RatRacingEngine/vendor/imgui -ID:/Projects/OpenGL/RatRacingEngine/vendor/imgui/backends
   OBJECT_DIR = CMakeFiles\RatRacingEngine.dir
-  OBJECT_FILE_DIR = CMakeFiles\RatRacingEngine.dir\src\Engine\Project\Resources
+  OBJECT_FILE_DIR = CMakeFiles\RatRacingEngine.dir\src\Resources
 
 build CMakeFiles/RatRacingEngine.dir/src/Core/Core.cpp.obj: CXX_COMPILER__RatRacingEngine_unscanned_Debug D$:/Projects/OpenGL/RatRacingEngine/src/Core/Core.cpp || cmake_object_order_depends_target_RatRacingEngine
   DEP_FILE = CMakeFiles\RatRacingEngine.dir\src\Core\Core.cpp.obj.d
@@ -348,6 +348,20 @@ build CMakeFiles/RatRacingEngine.dir/src/Shader/Shader.cpp.obj: CXX_COMPILER__Ra
   OBJECT_DIR = CMakeFiles\RatRacingEngine.dir
   OBJECT_FILE_DIR = CMakeFiles\RatRacingEngine.dir\src\Shader
 
+build CMakeFiles/RatRacingEngine.dir/src/Engine/Project/Renderer/Renderer.cpp.obj: CXX_COMPILER__RatRacingEngine_unscanned_Debug D$:/Projects/OpenGL/RatRacingEngine/src/Engine/Project/Renderer/Renderer.cpp || cmake_object_order_depends_target_RatRacingEngine
+  DEP_FILE = CMakeFiles\RatRacingEngine.dir\src\Engine\Project\Renderer\Renderer.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -ID:/Projects/OpenGL/RatRacingEngine/vendor -ID:/Projects/OpenGL/RatRacingEngine/vendor/imgui -ID:/Projects/OpenGL/RatRacingEngine/vendor/imgui/backends
+  OBJECT_DIR = CMakeFiles\RatRacingEngine.dir
+  OBJECT_FILE_DIR = CMakeFiles\RatRacingEngine.dir\src\Engine\Project\Renderer
+
+build CMakeFiles/RatRacingEngine.dir/src/Engine/Project/Project.cpp.obj: CXX_COMPILER__RatRacingEngine_unscanned_Debug D$:/Projects/OpenGL/RatRacingEngine/src/Engine/Project/Project.cpp || cmake_object_order_depends_target_RatRacingEngine
+  DEP_FILE = CMakeFiles\RatRacingEngine.dir\src\Engine\Project\Project.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -ID:/Projects/OpenGL/RatRacingEngine/vendor -ID:/Projects/OpenGL/RatRacingEngine/vendor/imgui -ID:/Projects/OpenGL/RatRacingEngine/vendor/imgui/backends
+  OBJECT_DIR = CMakeFiles\RatRacingEngine.dir
+  OBJECT_FILE_DIR = CMakeFiles\RatRacingEngine.dir\src\Engine\Project
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target RatRacingEngine
@@ -356,7 +370,7 @@ build CMakeFiles/RatRacingEngine.dir/src/Shader/Shader.cpp.obj: CXX_COMPILER__Ra
 #############################################
 # Link the executable RatRacingEngine.exe
 
-build RatRacingEngine.exe: CXX_EXECUTABLE_LINKER__RatRacingEngine_Debug CMakeFiles/RatRacingEngine.dir/src/main.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Engine/Engine.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Engine/Project/Scene/Scene.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Engine/UserInterface/UserInterface.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Engine/Project/Resources/Resources.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Core/Core.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Core/Input/Input.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Core/Time/Time.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Utils/Utils.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Error/Error.cpp.obj CMakeFiles/RatRacingEngine.dir/src/GameObject/GameObject.cpp.obj CMakeFiles/RatRacingEngine.dir/src/GameObject/Components/Camera/Camera.cpp.obj CMakeFiles/RatRacingEngine.dir/src/GameObject/Components/Light/Light.cpp.obj CMakeFiles/RatRacingEngine.dir/src/GameObject/Components/Light/DirectionalLight/DirectionalLight.cpp.obj CMakeFiles/RatRacingEngine.dir/src/GameObject/Components/Light/PointLight/PointLight.cpp.obj CMakeFiles/RatRacingEngine.dir/src/GameObject/Components/Light/SpotLight/SpotLight.cpp.obj CMakeFiles/RatRacingEngine.dir/src/GameObject/Components/Model/Model.cpp.obj CMakeFiles/RatRacingEngine.dir/src/GameObject/Components/Model/Mesh/Mesh.cpp.obj CMakeFiles/RatRacingEngine.dir/src/GameObject/Components/Model/Mesh/Vertex/Vertex.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Material/Material.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Material/DefaultMaterial/DefaultMaterial.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Material/TextureMaterial/TextureMaterial.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Material/TextureMaterial/Texture/Texture.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Shader/Shader.cpp.obj | libGLAD.a libSTB_IMAGE.a libIMGUI.a || libGLAD.a libIMGUI.a libSTB_IMAGE.a
+build RatRacingEngine.exe: CXX_EXECUTABLE_LINKER__RatRacingEngine_Debug CMakeFiles/RatRacingEngine.dir/src/main.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Engine/Engine.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Engine/Project/Scene/Scene.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Engine/UserInterface/UserInterface.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Resources/Resources.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Core/Core.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Core/Input/Input.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Core/Time/Time.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Utils/Utils.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Error/Error.cpp.obj CMakeFiles/RatRacingEngine.dir/src/GameObject/GameObject.cpp.obj CMakeFiles/RatRacingEngine.dir/src/GameObject/Components/Camera/Camera.cpp.obj CMakeFiles/RatRacingEngine.dir/src/GameObject/Components/Light/Light.cpp.obj CMakeFiles/RatRacingEngine.dir/src/GameObject/Components/Light/DirectionalLight/DirectionalLight.cpp.obj CMakeFiles/RatRacingEngine.dir/src/GameObject/Components/Light/PointLight/PointLight.cpp.obj CMakeFiles/RatRacingEngine.dir/src/GameObject/Components/Light/SpotLight/SpotLight.cpp.obj CMakeFiles/RatRacingEngine.dir/src/GameObject/Components/Model/Model.cpp.obj CMakeFiles/RatRacingEngine.dir/src/GameObject/Components/Model/Mesh/Mesh.cpp.obj CMakeFiles/RatRacingEngine.dir/src/GameObject/Components/Model/Mesh/Vertex/Vertex.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Material/Material.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Material/DefaultMaterial/DefaultMaterial.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Material/TextureMaterial/TextureMaterial.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Material/TextureMaterial/Texture/Texture.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Shader/Shader.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Engine/Project/Renderer/Renderer.cpp.obj CMakeFiles/RatRacingEngine.dir/src/Engine/Project/Project.cpp.obj | libGLAD.a libSTB_IMAGE.a libIMGUI.a || libGLAD.a libIMGUI.a libSTB_IMAGE.a
   FLAGS = -g
   LINK_LIBRARIES = libGLAD.a  libSTB_IMAGE.a  -lglfw3  -lassimp  libIMGUI.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LD:/Projects/OpenGL/RatRacingEngine/lib

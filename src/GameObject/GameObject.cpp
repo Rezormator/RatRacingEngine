@@ -59,3 +59,6 @@ void GameObject::UpdateTransform() {
     model = glm::rotate(model, glm::radians(rotation.z), Z_AXIS);
     model = glm::scale(model, scale);
 }
+
+void GameObject::Dispose() {
+}

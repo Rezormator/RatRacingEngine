@@ -6,10 +6,10 @@
 #include "../Core/Core.h"
 
 namespace Error {
-    void LogError(const std::vector<std::string>& errors, const bool closeAfterError) {
+    void LogError(const std::vector<std::string>& logs, const bool closeAfterError) {
         std::cerr << "Error";
-        for (const auto& error : errors) {
-            std::cerr << " > " << error;
+        for (const auto& log : logs) {
+            std::cerr << " > " << log;
         }
         std::cerr << std::endl;
 

@@ -14,10 +14,6 @@ Scene::Scene(const std::string &path) {
     camera = new Camera();
 }
 
-Scene::~Scene() {
-    delete camera;
-}
-
 void Scene::LoadModels(const std::string &models) {
     std::vector<std::string> modelsPaths;
     {
@@ -32,7 +28,7 @@ void Scene::LoadModels(const std::string &models) {
         std::string path;
         GLuint id;
         iss >> path >> id;
-        this->models[id] = new Model(path.data());
+        // this->models[id] = new Model(path.data());
     }
 }
 
@@ -57,7 +53,7 @@ void Scene::LoadModelsMatrices(const std::string &modelsMatrices) {
             }
         }
 
-        this->modelsMatrices.emplace_back(id, model);
+        // this->modelsMatrices.emplace_back(id, model);
     }
 }
 
@@ -74,12 +70,16 @@ void Scene::Render(Shader *shader) const {
     camera->Update();
     camera->Render(shader);
 
-    for (const auto&[id, modelMatrix] : modelsMatrices) {
-        const auto model = models.at(id);
-        model->SetModel(modelMatrix);
-        model->Render(shader);
-    }
+    // for (const auto&[id, modelMatrix] : modelsMatrices) {
+    //     const auto model = models.at(id);
+    //     model->SetModel(modelMatrix);
+    //     model->Render(shader);
+    // }
 
     glfwSwapBuffers(Core::GetWindow());
     glfwPollEvents();
+}
+
+void Scene::Dispose() {
+    delete camera;
 }

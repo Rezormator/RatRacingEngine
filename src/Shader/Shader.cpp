@@ -59,10 +59,6 @@ void Shader::UnBind() {
     glUseProgram(0);
 }
 
-void Shader::Dispose() const {
-    glDeleteProgram(id);
-}
-
 void Shader::SetInt(const std::string &name, const int value) const {
     glUniform1i(glGetUniformLocation(id, name.c_str()), value);
 }
@@ -81,4 +77,8 @@ void Shader::SetVec4(const std::string &name, const glm::vec4 &value) const {
 
 void Shader::SetMat4(const std::string &name, const glm::mat4 &value) const {
     glUniformMatrix4fv(glGetUniformLocation(id, name.c_str()), 1, GL_FALSE, value_ptr(value));
+}
+
+void Shader::Dispose() {
+    glDeleteProgram(id);
 }
