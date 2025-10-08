@@ -32,8 +32,8 @@ add_executable(RatRacingEngine
         src/Engine/Engine.h
         src/Engine/Project/Scene/Scene.cpp
         src/Engine/Project/Scene/Scene.h
-        src/Engine/UserInterface/UserInterface.cpp
-        src/Engine/UserInterface/UserInterface.h
+        src/Engine/UI/UIPresenter.cpp
+        src/Engine/UI/UIPresenter.h
         src/Resources/Resources.cpp
         src/Resources/Resources.h
         src/Core/Core.cpp
@@ -81,6 +81,10 @@ add_executable(RatRacingEngine
         src/Engine/Project/Renderer/RenderTypes.h
         src/Engine/Project/Project.cpp
         src/Engine/Project/Project.h
+        src/Engine/Project/Scene/SceneJson.h
+        src/Core/Input/InputModes.h
+        src/Core/Screen.h
 )
 
+target_include_directories(RatRacingEngine PRIVATE ${VENDOR_DIR}/nlohmann)
 target_link_libraries(RatRacingEngine ${LIBS})

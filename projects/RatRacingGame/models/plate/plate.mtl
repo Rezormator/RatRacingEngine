@@ -1,0 +1,9 @@
+# Simple gray material for plate
+
+newmtl PlateMaterial
+Ka 0.5 0.5 0.5
+Kd 0.5 0.5 0.5
+Ks 0.1 0.1 0.1
+Ns 16.0
+d 1.0
+illum 2

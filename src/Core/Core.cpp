@@ -1,10 +1,13 @@
 #include "Core.h"
+
+#include "Screen.h"
 #include "../Error/Error.h"
 
 namespace Core {
     GLFWwindow* window;
     int windowWidth;
     int windowHeight;
+    ViewPort viewPort;
 
     void Initialize(const int width, const int height, const char *title, const bool fullscreen) {
         glfwInit();
@@ -42,6 +45,14 @@ namespace Core {
         }
     }
 
+    void SetViewport(const int x, const int y, const int width, const int height) {
+        glViewport(x, y, width, height);
+        viewPort.x = x;
+        viewPort.y = y;
+        viewPort.width = width;
+        viewPort.height = height;
+    }
+
     GLFWwindow *GetWindow() {
         return window;
     }
@@ -59,6 +70,15 @@ namespace Core {
     float GetAspectRatio() {
         glfwGetWindowSize(window, &windowWidth, &windowHeight);
         return static_cast<float>(windowWidth) / static_cast<float>(windowHeight);
+    }
+
+    ViewPort GetViewport() {
+        return viewPort;
+    }
+
+    void NewFrame() {
+        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
     void Dispose() {

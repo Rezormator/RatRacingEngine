@@ -1,83 +1,59 @@
 #include "Scene.h"
-#include <iostream>
-#include <sstream>
-#include <glm/gtc/matrix_transform.hpp>
-#include "../../../Core/Time/Time.h"
-#include "../../../Core/Input/Input.h"
-#include <glad/glad.h>
-#include "GLFW/glfw3.h"
-#include "../../../Core/Core.h"
+#include <fstream>
+#include <glm/gtc/type_ptr.hpp>
+
+#include "../../../Resources/Resources.h"
 
 Scene::Scene(const std::string &path) {
-    LoadModels(Utils::ReadTextFromFile(path + "/models"));
-    LoadModelsMatrices(Utils::ReadTextFromFile(path + "/matrices"));
-    camera = new Camera();
+    LoadFromJson(path);
 }
 
-void Scene::LoadModels(const std::string &models) {
-    std::vector<std::string> modelsPaths;
-    {
-        std::istringstream iss(models);
-        std::string line;
-        while (std::getline(iss, line)) {
-            modelsPaths.push_back(std::move(line));
-        }
-    }
-    for (const auto& line : modelsPaths) {
-        std::istringstream iss(line);
-        std::string path;
-        GLuint id;
-        iss >> path >> id;
-        // this->models[id] = new Model(path.data());
+void Scene::LoadFromJson(const std::string &path) {
+    std::ifstream file(path);
+    nlohmann::json json;
+    file >> json;
+    file.close();
+
+    const auto& cameraJson = json["camera"];
+    camera = new Camera(glm::vec3(cameraJson["position"][0], cameraJson["position"][1], cameraJson["position"][2]));
+
+    for (const auto& gameObjectJson : json["gameObjects"]) {
+        const auto gameObject = new GameObject();
+        std::vector<float> transform = gameObjectJson["transform"];
+        gameObject->SetModel(glm::make_mat4(transform.data()));
+        gameObjects[gameObject] = gameObjectJson["model"];
     }
 }
 
-void Scene::LoadModelsMatrices(const std::string &modelsMatrices) {
-    std::istringstream stream(modelsMatrices);
-    std::string line;
-
-    while (std::getline(stream, line)) {
-        if (line.empty()) continue;
-
-        std::istringstream idStream(line);
-        GLuint id;
-        idStream >> id;
-
-        glm::mat4 model;
-        if (std::getline(stream, line)) {
-            std::istringstream matStream(line);
-            for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < 4; j++) {
-                    matStream >> model[i][j];
-                }
-            }
-        }
-
-        // this->modelsMatrices.emplace_back(id, model);
-    }
+std::string Scene::GetName() const {
+    return name;
 }
 
 Camera* Scene::GetCamera() const {
     return camera;
 }
 
-void Scene::Render(Shader *shader) const {
-    Input::Update();
-    Time::UpdateDeltaTime();
-    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+nlohmann::json Scene::GetJson() const {
+    nlohmann::json json;
+    // TODO : convert to json file
+    return json;
+}
 
+void Scene::Render(Shader *shader) const {
     camera->Update();
     camera->Render(shader);
 
-    // for (const auto&[id, modelMatrix] : modelsMatrices) {
-    //     const auto model = models.at(id);
-    //     model->SetModel(modelMatrix);
-    //     model->Render(shader);
-    // }
-
-    glfwSwapBuffers(Core::GetWindow());
-    glfwPollEvents();
+    for (const auto [gameObject, modelName] : gameObjects) {
+        shader->SetMat4("model", gameObject->GetModel());
+        const auto model = Resources::GetModelByIndex(Resources::GetModelIndexByName(modelName));
+        for (const auto meshIndex : model->GetMeshes()) {
+            const auto mesh = Resources::GetMeshByIndex(meshIndex);
+            Resources::GetMaterialByIndex(mesh->GetMaterialIndex())->Apply(shader);
+            glBindVertexArray(mesh->GetVAO());
+            glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(mesh->GetIndicesCount()), GL_UNSIGNED_INT, nullptr);
+            glBindVertexArray(0);
+        }
+    }
 }
 
 void Scene::Dispose() {

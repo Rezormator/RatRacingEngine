@@ -2,14 +2,21 @@
 #include <vector>
 #include "Scene/Scene.h"
 
-class Project {
+class Project : IDisposable {
 private:
     std::string directory;
-    std::vector<Scene> scenes;
+    std::string scenesDirectory;
+    Shader *shader;
+    std::vector<Scene *> scenes;
     int currentSceneIndex;
+    void LoadShader();
     void LoadModels() const;
-    // bool IsValidProject(const std::string &directory);
+    void LoadScenes();
 public:
-    explicit Project(std::string directory);
+    explicit Project(const std::string &directory);
     NODISCARD int GetSceneCount() const;
+    void Run() const;
+    void CreateScene(const std::string &name) const;
+    void SaveProject() const;
+    void Dispose() override;
 };

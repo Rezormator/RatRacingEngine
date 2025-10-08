@@ -14,4 +14,5 @@ namespace Utils {
     glm::vec3 Color3DToVec3(const aiColor3D &aiColor3D);
     Texture *LoadMaterialTextures(const aiMaterial *mat, aiTextureType type, const std::string &directory);
     std::string GetObjFileName(const std::string &fileDirectory);
+    std::string GetTwoLetters(const std::string& word);
 }

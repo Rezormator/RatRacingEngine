@@ -11,8 +11,8 @@
 #include "../Material/TextureMaterial/TextureMaterial.h"
 
 namespace Resources {
-    std::vector<Model> models;
-    std::vector<Mesh> meshes;
+    std::vector<Model *> models;
+    std::vector<Mesh *> meshes;
     std::vector<Material *> materials;
     std::unordered_map<std::string, uint> modelsIndexMap;
     // std::unordered_map<std::string, uint> meshesIndexMap;
@@ -55,7 +55,7 @@ namespace Resources {
             meshesIndex->push_back(meshes.size());
             const auto mesh = scene->mMeshes[node->mMeshes[i]];
             const auto materialName =  scene->mMaterials[mesh->mMaterialIndex]->GetName().C_Str();
-            meshes.push_back(Mesh(mesh, materialIndexMap[materialName]));
+            meshes.push_back(new Mesh(mesh, materialIndexMap[materialName]));
         }
         for (unsigned int i = 0; i < node->mNumChildren; i++) {
             ProcessNode(node->mChildren[i], scene, meshesIndex);
@@ -64,7 +64,7 @@ namespace Resources {
 
     void LoadModel(const std::string &modelDirectory) {
         const auto modelName = Utils::GetObjFileName(modelDirectory);
-        const auto modelPath = modelDirectory + '/' + modelName + ".obj";
+        const auto modelPath = modelDirectory + '/' + modelName;
         Assimp::Importer importer;
         const auto scene = importer.ReadFile(modelPath, aiProcess_Triangulate | aiProcess_FlipUVs);
         if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
@@ -73,8 +73,8 @@ namespace Resources {
         LoadMaterials(scene, modelDirectory);
         const auto meshesIndex = new std::vector<uint>();
         ProcessNode(scene->mRootNode, scene, meshesIndex);
-        modelsIndexMap[modelName] = models.size();
-        models.push_back(Model(std::filesystem::path(modelDirectory).filename().string(), *meshesIndex));
+        modelsIndexMap[std::filesystem::path(modelDirectory).filename().string()] = models.size();
+        models.push_back(new Model(std::filesystem::path(modelDirectory).filename().string(), *meshesIndex));
         delete meshesIndex;
     }
 
@@ -86,10 +86,28 @@ namespace Resources {
         return materialIndexMap[name];
     }
 
+    Model *GetModelByIndex(const uint index) {
+        return models[index];
+    }
+
+    uint GetModelIndexByName(const std::string &name) {
+        return modelsIndexMap[name];
+    }
+
+    Mesh *GetMeshByIndex(const uint index) {
+        return meshes[index];
+    }
+
     void Dispose() {
         for (const auto material : materials) {
             material->Dispose();
             delete material;
+        }
+        for (const auto model : models) {
+            delete model;
+        }
+        for (const auto mesh : meshes) {
+            delete mesh;
         }
     }
 

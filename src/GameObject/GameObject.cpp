@@ -51,6 +51,10 @@ void GameObject::Update() {
     UpdateTransform();
 }
 
+void GameObject::Render(Shader *shader) const {
+}
+
+
 void GameObject::UpdateTransform() {
     model = glm::mat4(1.0f);
     model = glm::translate(model, position);

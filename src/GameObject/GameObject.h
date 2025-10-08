@@ -31,6 +31,6 @@ public:
     NODISCARD glm::vec3 GetScale() const;
     NODISCARD glm::mat4 GetModel() const;
     virtual void Update();
-    virtual void Render(Shader *shader) const = 0;
+    virtual void Render(Shader *shader) const;
     void Dispose() override;
 };

@@ -5,7 +5,7 @@
 #include "../Core/Input/Input.h"
 #include "../Core/Time/Time.h"
 #include "../Shader/Shader.h"
-// #include "../GameObject/Components/Light/DirectionalLight/DirectionalLight.h"
+#include "../GameObject/Components/Light/DirectionalLight/DirectionalLight.h"
 // #include "../GameObject/Components/Light/PointLight/PointLight.h"
 // #include "../GameObject/Components/Light/SpotLight/SpotLight.h"
 // #include <imgui/imgui.h>
@@ -17,43 +17,43 @@
 
 namespace Engine {
     constexpr auto PROJECTS_DIRECTORY = "../projects";
-    std::vector<Project*> projects;
-    int currentProjectIndex = -1;
+    std::vector<std::string> projects;
+    Project* project;
+    int currentProjectIndex = UNINITIALIZED;
+
+    std::vector<std::string> GetProjectsNames() {
+        std::vector<std::string> projectsNames;
+        for (const auto& entry : std::filesystem::directory_iterator(PROJECTS_DIRECTORY)) {
+            if (is_directory(entry)) {
+                projectsNames.push_back(entry.path().string());
+            }
+        }
+        return projectsNames;
+    }
+
+    void SetCurrentProjectIndex(const int projectIndex) {
+        currentProjectIndex = projectIndex;
+    }
 
     void Initialize() {
         // !!!!!!!!!
         Core::Initialize();
-        UserInterface::Initialize();
+        UIPresenter::Initialize();
+        Input::SetInputMode(GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        projects = GetProjectsNames();
+        glEnable(GL_DEPTH_TEST);
         // LoadScenes();
         // currentScene = 0;
-        glEnable(GL_DEPTH_TEST);
-        glfwSetInputMode(Core::GetWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     }
-
-    // void Engine::SetCurrentProjectIndex(const int projectIndex) {
-    //     currentProjectIndex = projectIndex;
-    // }
-
-    // void Engine::LoadScenes() {
-    //     for (const auto &entry: std::filesystem::directory_iterator(PATH_TO_SCENES)) {
-    //         scenes.push_back(new Scene(entry.path().string()));
-    //     }
-    // }
 
     void Run() {
         // glfwSetInputMode(Core::GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-        const auto shader = new Shader("../src/Shader/Shaders/default.vert",
-                                       "../src/Shader/Shaders/default.frag");
-        shader->Bind();
         // shader->SetVec3("directionalLights[0].direction", glm::vec3(0.0f, 1.0f, 0.5f));
         // shader->SetVec3("directionalLights[0].ambient", glm::vec3(0.2f, 0.2f, 0.2f));
         // shader->SetVec3("directionalLights[0].diffuse", glm::vec3(0.5f, 0.5f, 0.5f));
         // shader->SetVec3("directionalLights[0].specular", glm::vec3(1.0f, 1.0f, 1.0f));
         //
-        // const auto directionalLight = new DirectionalLight(glm::vec3(0.2f, 0.2f, 0.2f), glm::vec3(0.5f, 0.5f, 0.5f),
-        //                                             glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 1.0f, 0.5f));
-        // directionalLight->Render(shader);
         //
         // const auto pointLight = new PointLight(glm::vec3(0.2f, 0.2f, 0.2f), glm::vec3(0.5f, 0.5f, 0.5f),
         //                                             glm::vec3(1.0f, 1.0f, 1.0f), 3, 0.5, glm::vec3(0.0f, 0.0f, 3.0f));
@@ -66,50 +66,42 @@ namespace Engine {
         while (!glfwWindowShouldClose(Core::GetWindow())) {
             Input::Update();
             Time::UpdateDeltaTime();
+            Core::NewFrame();
+            UIPresenter::NewImGuiFrame();
 
-            glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-            // 🔹 Початок нового кадру ImGui
-            ImGui_ImplOpenGL3_NewFrame();
-            ImGui_ImplGlfw_NewFrame();
-            ImGui::NewFrame();
-
-            // 🔹 Твоє меню
-            if (currentProjectIndex == -1) {
-                UserInterface::ProjectSelectionMenu();
+            if (currentProjectIndex == UNINITIALIZED) {
+                UIPresenter::ProjectSelectionMenu(GetProjectsNames());
             }
-            // scenes[currentScene]->Render(shader);
-            // userInterface->Render();
+            else {
+                project->Run();
+            }
 
-            // 🔹 Рендеринг ImGui
-            ImGui::Render();
-            ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
+            UIPresenter::Render();
             glfwSwapBuffers(Core::GetWindow());
             glfwPollEvents();
         }
-        delete shader;
+    }
+
+    // TODO: shut method
+    void Shut() {
     }
 
     void CreateProject(const std::string &directory) {
-        std::ofstream project(directory);
-        std::ofstream models(directory + "/models");
-        std::ofstream scenes(directory + "/scenes");
+        std::filesystem::create_directory(directory);
+        std::filesystem::create_directory(directory + "/models");
+        std::filesystem::create_directory(directory + "/scenes");
     }
 
-    void LoadProject(const std::string &directory) {
-        projects.push_back(new Project(directory));
+    void LoadCurrentProject() {
+        project = new Project(projects[currentProjectIndex]);
+        Input::SetCursorMode(CursorMode::SCENE_VIEW);
     }
 
-    // TODO : remove project method
+    // TODO: remove project method
     // void RemoveProject(const std::string &directory) {
     //     std::filesystem::remove(directory);
     // }
 
-    // TODO : is valid project method
+    // TODO: is valid project method
 
-    // TODO : shut method
-    void Shut() {
-    }
 }

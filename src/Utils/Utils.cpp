@@ -36,4 +36,19 @@ namespace Utils {
         Error::LogError(std::vector<std::string> {".obj dont found", fileDirectory});
         return "object";
     }
+
+    std::string GetTwoLetters(const std::string& word) {
+        std::string result;
+        for (const char c : word) {
+            if (std::isupper(static_cast<unsigned char>(c)) && result.size()<2) {
+                result += c;
+            }
+        }
+        for (const char c : word) {
+            if (result.size()<2) {
+                result += c;
+            }
+        }
+        return result;
+    }
 }
